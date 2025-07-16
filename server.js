@@ -13,10 +13,14 @@ app.use(line.middleware(config));
 const client = new line.Client(config);
 
 app.post('/webhook', async (req, res) => {
-  Promise.all(req.body.events.map(handleEvent))
-    .then(result => res.json(result));
+  try {
+    await Promise.all(req.body.events.map(handleEvent));
+    res.status(200).end(); // ตอบ 200 OK
+  } catch (error) {
+    console.error('Error handling event:', error);
+    res.status(500).end(); // ถ้ามี error
+  }
 });
-
 async function handleEvent(event) {
   if (event.type !== 'message' || event.message.type !== 'text') return;
 
