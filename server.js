@@ -20,7 +20,7 @@ app.post('/webhook', async (req, res) => {
     res.status(200).end(); // ✅ ตอบกลับ 200 OK
   } catch (error) {
     console.error('Error handling event:', error);
-    res.status(500).end(); // ❗ควรเปลี่ยนเป็น 200 เพื่อให้ LINE เข้าใจว่ารับ event ได้
+    res.status(200).end(); // ❗ควรเปลี่ยนเป็น 200 เพื่อให้ LINE เข้าใจว่ารับ event ได้
   }
 });
 
